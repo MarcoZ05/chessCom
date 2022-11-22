@@ -10,6 +10,13 @@ class Chessboard {
     this.selectedPiece = null;
     this.turn = true;
     this.lastMove = [];
+
+    this.chessboardDiv.addEventListener("click", (e) => {
+      if (e.target === this.chessboardDiv) {
+        this.selectedPiece = null;
+        this.render();
+      }
+    });
   }
 
   movePiece(piece, position) {
