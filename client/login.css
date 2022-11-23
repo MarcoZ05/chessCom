@@ -1,10 +1,10 @@
 body {
   margin: 0;
-  background-color: #1e1e1e;  
+  background-color: #1e1e1e;
 }
 
 * {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   color: white;
   outline: none;
   transition: 0.25s ease;
@@ -58,7 +58,7 @@ form > input:active {
 
 form > button {
   padding: 10px;
-  border: 1px solid none;
+  border: none;
   background-color: #00b0ff;
   border-radius: 5px;
 }
