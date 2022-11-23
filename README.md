@@ -1,3 +1,9 @@
 client -> npm i socket.io-client
-server -> npm i socket.io
-server -> npm i express
+server -> npm i socket.io express
+=> installing socket and express locally
+
+project -> npm i -g nodemon
+=> installing nodemon globally
+
+server -> npm run dev
+=> run server on port 3000
