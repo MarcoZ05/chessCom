@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  background-color: #1e1e1e;  
+}
+
+* {
+  font-family: 'JetBrains Mono', monospace;
+  color: white;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+form {
+  float: left;
+  width: 49vw;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+form > * {
+  display: block;
+  margin: 25px auto;
+  width: 50%;
+  font-size: 2rem;
+}
+
+form > input {
+  padding: 15px;
+  padding-bottom: 5px;
+  border: none;
+  background-color: #1e1e1e;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+}
+
+form > input:hover {
+  background: #2d2d2d;
+}
+
+form > input:focus {
+  background: linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  border-bottom: 2px solid #00b0ff;
+}
+
+form > input:active {
+  background: linear-gradient(
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  border-bottom: 2px solid #00b0ff;
+}
+
+form > button {
+  padding: 10px;
+  border: 1px solid none;
+  background-color: #00b0ff;
+  border-radius: 5px;
+}
+
+form > button:hover {
+  background-color: #00b0ff;
+  opacity: 0.8;
+}
+
+form > button:active {
+  background-color: #00b0ff;
+  opacity: 0.6;
+}
