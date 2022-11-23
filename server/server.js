@@ -9,7 +9,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 const port = 3000;
 
-app.use(express.static("client"));
+app.use(express.static("../client"));
 
 io.on("connection", (socket) => {
   socket.on("login", (data) => {
@@ -17,7 +17,11 @@ io.on("connection", (socket) => {
     const user = users.find((user) => user.name === data.name);
 
     if (user && user.password === data.password) {
-      socket.emit("login", { success: true });
+      socket.emit("login", {
+        success: true,
+        name: user.name,
+        password: user.password,
+      });
     } else {
       socket.emit("login", {
         success: false,
@@ -65,6 +69,8 @@ io.on("connection", (socket) => {
       return socket.emit("register", {
         success: false,
         error: "Username already exists",
+        name: data.name,
+        password: data.password0,
       });
 
     users.push({

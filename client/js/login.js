@@ -35,15 +35,7 @@ registerForm.addEventListener("submit", (e) => {
 
 socket.on("login", (data) => {
   if (data.success) {
-    localStorage.setItem(
-      "chessLogin",
-      JSON.stringify({
-        name: loginName.value,
-        password: loginPassword.value,
-      })
-    );
-    // window.location.href = "/game.html";
-    console.log("login success");
+    successfullLogin(data);
   } else {
     alert(data.error);
   }
@@ -51,9 +43,19 @@ socket.on("login", (data) => {
 
 socket.on("register", (data) => {
   if (data.success) {
-    // window.location.href = "/game.html";
-    console.log("register success");
+    successfullLogin(data);
   } else {
     alert(data.error);
   }
 });
+
+function successfullLogin(data) {
+  localStorage.setItem(
+    "chessLogin",
+    JSON.stringify({
+      name: data.name,
+      password: data.password,
+    })
+  );
+  window.location.href = "/game.html";
+}

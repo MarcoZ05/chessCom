@@ -37,22 +37,16 @@ form > input {
 }
 
 form > input:hover {
-  background: #2d2d2d;
+  background: #1b1b1b;
 }
 
 form > input:focus {
-  background: linear-gradient(
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 100%
-  );
+  background: linear-gradient(#1e1e1e 0%, #1b1b1b 50%, #1b1b1b 100%);
   border-bottom: 2px solid #00b0ff;
 }
 
 form > input:active {
-  background: linear-gradient(
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 100%
-  );
+  background: linear-gradient(#1e1e1e 0%, #1b1b1b 100%);
   border-bottom: 2px solid #00b0ff;
 }
 
