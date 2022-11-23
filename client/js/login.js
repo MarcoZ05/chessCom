@@ -1,5 +1,3 @@
-import { io } from "../node_modules/@socket.io"
-
 const socket = io();
 
 const loginForm = document.getElementById('login');
