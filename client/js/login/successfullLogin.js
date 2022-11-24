@@ -6,7 +6,7 @@ function successfullLogin(data) {
       password: data.password,
     })
   );
-  window.location.href = "/chess.html";
+  window.location.href = "/lobby.html";
 }
 
 export default successfullLogin;

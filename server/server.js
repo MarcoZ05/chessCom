@@ -1,9 +1,9 @@
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
-const fs = require("fs");
 const generateCode = require("./generateCode.js");
 const sendVerificationEmail = require("./sendVerificationEmail.js");
+const { getUserByName, pushUser, updateUser } = require("./user.js");
 
 const app = express();
 const server = http.createServer(app);
@@ -15,8 +15,7 @@ app.use(express.static("../client"));
 
 io.on("connection", (socket) => {
   socket.on("login", ({ name, password }) => {
-    const users = require("./users.json");
-    const user = users.find((user) => user.name === name);
+    const user = getUserByName(name);
 
     if (user && user.password === password) {
       socket.emit("login", {
@@ -41,10 +40,10 @@ io.on("connection", (socket) => {
         error: "Passwords do not match",
       });
     }
-    if (password0.length < 8) {
+    if (password0.length < 4) {
       return socket.emit("register", {
         success: false,
-        error: "Password must be at least 8 characters long",
+        error: "Password must be at least 4 characters long",
       });
     }
     if (name.length < 3) {
@@ -66,8 +65,7 @@ io.on("connection", (socket) => {
       });
     }
 
-    const users = require("./users.json");
-    const user = users.find((user) => user.name === name);
+    const user = getUserByName(name);
 
     if (user) {
       return socket.emit("register", {
@@ -80,7 +78,6 @@ io.on("connection", (socket) => {
     }
 
     const verifyToken = generateCode(6);
-
     sendVerificationEmail(name, email, verifyToken);
 
     socket.emit("register", {
@@ -91,7 +88,7 @@ io.on("connection", (socket) => {
       email,
     });
 
-    users.push({
+    pushUser({
       name,
       password: password0,
       email,
@@ -102,12 +99,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("verify", ({ verifyToken, name, email, password }) => {
-    const users = fs.readFileSync("./users.json");
-    const user = users.find(
-      (user) => user.verifyToken === verifyToken && !user.verified
-    );
+    const user = getUserByName(name);
 
-    if (!user) {
+    if (!user || user.verifyToken !== verifyToken) {
       socket.emit("verify", {
         success: false,
         error: "Invalid verification code",
@@ -118,11 +112,13 @@ io.on("connection", (socket) => {
     user.verified = true;
     user.verifyToken = null;
 
-    fs.writeFileSync("./users.json", JSON.stringify(users));
+    updateUser(user);
 
     socket.emit("verify", {
       success: true,
-      name: user.name,
+      name: name,
+      password: password,
+      email: email,
     });
   });
 });

@@ -15,23 +15,28 @@ const registerPassword1 = document.getElementById("register_password_1");
 const verifyForm = document.getElementById("verify");
 const verifyInput = document.getElementById("verify_input");
 
+// login if data is stored in local storage
 if (localStorage.getItem("chessLogin")) {
   const login = JSON.parse(localStorage.getItem("chessLogin"));
   socket.emit("login", login);
 }
 
+// login form
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  // try to login
   socket.emit("login", {
     name: loginName.value.trim(),
     password: loginPassword.value.trim(),
   });
 });
 
+// register form
 registerForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  // try to register
   if (registerPassword0.value === registerPassword1.value)
     socket.emit("register", {
       name: registerName.value.trim(),
@@ -41,6 +46,7 @@ registerForm.addEventListener("submit", (e) => {
     });
 });
 
+// verify form
 verifyForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -66,9 +72,7 @@ socket.on("register", (data) => {
 });
 
 socket.on("verify", (data) => {
-  if (!data.success) return;
+  console.log(data);
 
-  loginForm.style.display = "block";
-  registerForm.style.display = "block";
-  verifyForm.style.display = "none";
+  if (data.success) successfullLogin(data);
 });

@@ -2,7 +2,7 @@ import Chessboard from "./Chessboard.js";
 
 const chessboardDiv = document.getElementById("chessboard");
 
-var playersColor;
+var playersColor 
 var startingPosition = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 
 // create a new chessboard
