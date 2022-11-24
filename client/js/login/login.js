@@ -67,4 +67,8 @@ socket.on("register", (data) => {
 
 socket.on("verify", (data) => {
   if (!data.success) return;
+
+  loginForm.style.display = "block";
+  registerForm.style.display = "block";
+  verifyForm.style.display = "none";
 });
