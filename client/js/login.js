@@ -57,5 +57,5 @@ function successfullLogin(data) {
       password: data.password,
     })
   );
-  window.location.href = "/game.html";
+  window.location.href = "/chess.html";
 }
