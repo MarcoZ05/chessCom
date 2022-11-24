@@ -1,4 +1,4 @@
-import Chessboard from "./chess/Chessboard.js";
+import Chessboard from "./Chessboard.js";
 
 const chessboardDiv = document.getElementById("chessboard");
 

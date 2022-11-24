@@ -1,13 +1,21 @@
 body {
   margin: 0;
   background-color: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 * {
-  font-family: 'JetBrains Mono', monospace;
-  color: white;
+  font-family: "JetBrains Mono", monospace;
+  color: rgb(182, 182, 182);
   outline: none;
   transition: 0.25s ease;
+}
+
+h1 {
+  color: white;
 }
 
 form {
@@ -27,12 +35,17 @@ form > * {
   font-size: 2rem;
 }
 
+form#verify {
+  display: none;
+}
+
 form > input {
   padding: 15px;
   padding-bottom: 5px;
   border: none;
   background-color: #1e1e1e;
   border-bottom: 2px solid transparent;
+  color: white;
   border-radius: 0;
 }
 
@@ -51,6 +64,7 @@ form > input:active {
 }
 
 form > button {
+  color: white;
   padding: 10px;
   border: none;
   background-color: #00b0ff;

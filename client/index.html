@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>login</title>
+    <title>Chessy | Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,6 +29,7 @@
     <form id="register" autocomplete="off">
       <h1>Register</h1>
       <input type="text" id="register_name" placeholder="Username" required />
+      <input type="email" id="register_email" placeholder="Email" required />
       <input
         type="password"
         id="register_password_0"
@@ -41,10 +42,18 @@
         placeholder="Password"
         required
       />
+
       <button type="submit">Register</button>
     </form>
-        
+
+    <form id="verify">
+      <h1>Verify</h1>
+      Please check your email for a verification code and enter it below.
+      <input type="text" id="verify_code" placeholder="Code" required />
+      <button type="submit">Verify</button>
+    </form>
+
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/login.js" type="module"></script>
+    <script src="./js/login/login.js" type="module"></script>
   </body>
 </html>

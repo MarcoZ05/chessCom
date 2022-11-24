@@ -2,6 +2,8 @@ const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 const fs = require("fs");
+const generateCode = require("./generateCode.js");
+const sendVerificationEmail = require("./sendVerificationEmail.js");
 
 const app = express();
 const server = http.createServer(app);
@@ -12,50 +14,52 @@ const port = 3000;
 app.use(express.static("../client"));
 
 io.on("connection", (socket) => {
-  socket.on("login", (data) => {
+  socket.on("login", ({ name, password }) => {
     const users = require("./users.json");
-    const user = users.find((user) => user.name === data.name);
+    const user = users.find((user) => user.name === name);
 
-    if (user && user.password === data.password) {
+    if (user && user.password === password) {
       socket.emit("login", {
         success: true,
-        name: user.name,
-        password: user.password,
+        name: name,
+        password: password,
       });
     } else {
       socket.emit("login", {
         success: false,
         error: "Invalid username or password",
+        name: name,
+        password: password,
       });
     }
   });
 
-  socket.on("register", (data) => {
-    if (data.password0 !== data.password1) {
+  socket.on("register", ({ name, email, password0, password1 }) => {
+    if (password0 !== password1) {
       return socket.emit("register", {
         success: false,
         error: "Passwords do not match",
       });
     }
-    if (data.password0.length < 8) {
+    if (password0.length < 8) {
       return socket.emit("register", {
         success: false,
         error: "Password must be at least 8 characters long",
       });
     }
-    if (data.name.length < 3) {
+    if (name.length < 3) {
       return socket.emit("register", {
         success: false,
         error: "Username must be at least 3 characters long",
       });
     }
-    if (!/^[a-zA-Z0-9]+$/.test(data.name)) {
+    if (!/^[a-zA-Z0-9]+$/.test(name)) {
       return socket.emit("register", {
         success: false,
         error: "Username must only contain letters and numbers",
       });
     }
-    if (!/^[a-zA-Z0-9]+$/.test(data.password0)) {
+    if (!/^[a-zA-Z0-9]+$/.test(password0)) {
       return socket.emit("register", {
         success: false,
         error: "Password must only contain letters and numbers",
@@ -63,27 +67,64 @@ io.on("connection", (socket) => {
     }
 
     const users = require("./users.json");
-    const user = users.find((user) => user.name === data.name);
+    const user = users.find((user) => user.name === name);
 
-    if (user)
+    if (user) {
       return socket.emit("register", {
         success: false,
         error: "Username already exists",
-        name: data.name,
-        password: data.password0,
+        name,
+        password: password0,
+        email,
       });
+    }
+
+    const verifyToken = generateCode(6);
+
+    sendVerificationEmail(name, email, verifyToken);
+
+    socket.emit("register", {
+      success: true,
+      verifyToken,
+      name,
+      password: password0,
+      email,
+    });
 
     users.push({
-      name: data.name,
-      password: data.password0,
+      name,
+      password: password0,
+      email,
+      verifyToken,
+      verified: false,
+      created: new Date(),
     });
+  });
+
+  socket.on("verify", ({ verifyToken, name, email, password }) => {
+    const users = fs.readFileSync("./users.json");
+    const user = users.find(
+      (user) => user.verifyToken === verifyToken && !user.verified
+    );
+
+    if (!user) {
+      socket.emit("verify", {
+        success: false,
+        error: "Invalid verification code",
+      });
+      return;
+    }
+
+    user.verified = true;
+    user.verifyToken = null;
 
     fs.writeFileSync("./users.json", JSON.stringify(users));
 
-    socket.emit("register", { success: true });
+    socket.emit("verify", {
+      success: true,
+      name: user.name,
+    });
   });
 });
 
-server.listen(port, () => {
-  console.log(`listening on *:${port}`);
-});
+server.listen(port, () => console.log(`listening on *:${port}`));
