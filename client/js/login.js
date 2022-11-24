@@ -10,6 +10,9 @@ const registerPassword0 = document.getElementById("register_password_0");
 const registerPassword1 = document.getElementById("register_password_1");
 
 if (localStorage.getItem("chessLogin")) {
+  const login = JSON.parse(localStorage.getItem("chessLogin"));
+  socket.emit("login", login);
+
   loginName.value = JSON.parse(localStorage.getItem("chessLogin")).name;
 }
 
