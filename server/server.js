@@ -17,57 +17,56 @@ io.on("connection", (socket) => {
   socket.on("login", ({ name, password }) => {
     const user = getUserByName(name);
 
-    if (user && user.password === password) {
-      socket.emit("login", {
+    if (user && user.password === password)
+      return socket.emit("login", {
         success: true,
         name: name,
         password: password,
       });
-    } else {
-      socket.emit("login", {
-        success: false,
-        error: "Invalid username or password",
-        name: name,
-        password: password,
-      });
-    }
+
+    socket.emit("login", {
+      success: false,
+      error: "Invalid username or password",
+      name: name,
+      password: password,
+    });
   });
 
   socket.on("register", ({ name, email, password0, password1 }) => {
-    if (password0 !== password1) {
+    if (password0 !== password1)
       return socket.emit("register", {
         success: false,
         error: "Passwords do not match",
       });
-    }
-    if (password0.length < 4) {
+
+    if (password0.length < 4)
       return socket.emit("register", {
         success: false,
         error: "Password must be at least 4 characters long",
       });
-    }
-    if (name.length < 3) {
+
+    if (name.length < 3)
       return socket.emit("register", {
         success: false,
         error: "Username must be at least 3 characters long",
       });
-    }
-    if (!/^[a-zA-Z0-9]+$/.test(name)) {
+
+    if (!/^[a-zA-Z0-9]+$/.test(name))
       return socket.emit("register", {
         success: false,
         error: "Username must only contain letters and numbers",
       });
-    }
-    if (!/^[a-zA-Z0-9]+$/.test(password0)) {
+
+    if (!/^[a-zA-Z0-9]+$/.test(password0))
       return socket.emit("register", {
         success: false,
         error: "Password must only contain letters and numbers",
       });
-    }
+
 
     const user = getUserByName(name);
 
-    if (user) {
+    if (user)
       return socket.emit("register", {
         success: false,
         error: "Username already exists",
@@ -75,7 +74,7 @@ io.on("connection", (socket) => {
         password: password0,
         email,
       });
-    }
+
 
     const verifyToken = generateCode(6);
     sendVerificationEmail(name, email, verifyToken);
@@ -101,13 +100,11 @@ io.on("connection", (socket) => {
   socket.on("verify", ({ verifyToken, name, email, password }) => {
     const user = getUserByName(name);
 
-    if (!user || user.verifyToken !== verifyToken) {
-      socket.emit("verify", {
+    if (!user || user.verifyToken !== verifyToken)
+      return socket.emit("verify", {
         success: false,
         error: "Invalid verification code",
       });
-      return;
-    }
 
     user.verified = true;
     user.verifyToken = null;
