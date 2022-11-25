@@ -1,42 +1,10 @@
 [
   {
-    "name": "testwww",
-    "password": "test",
-    "email": "test@test.com",
-    "verifyToken": "TYKLOB",
-    "verified": false,
-    "created": "2022-11-24T19:03:33.567Z"
-  },
-  {
-    "name": "test",
-    "password": "test",
-    "email": "test@test.com",
-    "verifyToken": "UWTH3G",
-    "verified": false,
-    "created": "2022-11-24T19:04:22.901Z"
-  },
-  {
-    "name": "test213123",
-    "password": "test",
-    "email": "test@test.com",
-    "verifyToken": "S8RRJS",
-    "verified": false,
-    "created": "2022-11-24T19:05:11.531Z"
-  },
-  {
-    "name": "teswdat",
-    "password": "test",
-    "email": "test@test.com",
-    "verifyToken": null,
-    "verified": true,
-    "created": "2022-11-24T19:06:04.240Z"
-  },
-  {
-    "name": "majo",
+    "name": "Copied",
     "password": "majo",
-    "email": "majo@gmail.com",
+    "email": "test@gmail.com",
     "verifyToken": null,
     "verified": true,
-    "created": "2022-11-24T20:30:45.256Z"
+    "created": "2022-11-25T09:40:49.036Z"
   }
-]
+] 

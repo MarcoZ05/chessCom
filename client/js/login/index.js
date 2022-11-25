@@ -15,6 +15,9 @@ const registerPassword1 = document.getElementById("register_password_1");
 const verifyForm = document.getElementById("verify");
 const verifyInput = document.getElementById("verify_input");
 
+// temporary delete localStorage
+localStorage.clear();
+
 // login if data is stored in local storage
 if (localStorage.getItem("chessLogin")) {
   const login = JSON.parse(localStorage.getItem("chessLogin"));
