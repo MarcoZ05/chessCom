@@ -63,7 +63,6 @@ io.on("connection", (socket) => {
         error: "Password must only contain letters and numbers",
       });
 
-
     const user = getUserByName(name);
 
     if (user)
@@ -74,7 +73,6 @@ io.on("connection", (socket) => {
         password: password0,
         email,
       });
-
 
     const verifyToken = generateCode(6);
     sendVerificationEmail(name, email, verifyToken);

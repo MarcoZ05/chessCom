@@ -1,0 +1,30 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  color: var(--white);
+}
+
+form {
+  float: left;
+  width: 49vw;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+form > * {
+  display: block;
+  margin: 25px auto;
+  width: 50%;
+  font-size: 2rem;
+}
+
+form#verify {
+  display: none;
+}

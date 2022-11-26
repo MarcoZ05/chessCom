@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  background-color: var(--black-1);
+  height: 100vh;
+}
+
+* {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--gray);
+  outline: none;
+  transition: 0.25s ease;
+}
+
+button,
+button * {
+  user-select: none;
+  color: var(--white);
+  padding: 10px;
+  border: none;
+  background-color: var(--blue);
+  border-radius: 5px;
+}
+button:hover,
+button *:hover {
+  background-color: var(--blue);
+  opacity: 0.8;
+}
+button:active,
+button *:active {
+  background-color: var(--blue);
+  opacity: 0.6;
+}
+
+input,
+input * {
+  padding: 15px;
+  padding-bottom: 5px;
+  border: none;
+  background-color: var(--black-1);
+  border-bottom: 2px solid transparent;
+  color: var(--white);
+  border-radius: 0;
+  user-select: text !important;
+}
+input:hover,
+input *:hover {
+  background: #1b1b1b;
+}
+input:focus,
+input *:focus {
+  background: linear-gradient(
+    var(--black-1) 0%,
+    var(--black-2) 50%,
+    var(--black-2) 100%
+  );
+  border-bottom: 2px solid var(--blue);
+}
+input:active,
+input *:active {
+  background: linear-gradient(var(--black-1) 0%, var(--black-2) 100%);
+  border-bottom: 2px solid var(--blue);
+}
+
+.textFade {
+  animation: textFade 1s ease;
+}
+
+@keyframes textFade {
+  0% {
+    color: var(--white);
+  }
+  33% {
+    color: var(--blue);
+  }
+  66% {
+    color: var(--blue);
+  }
+  100% {
+    color: var(--white);
+  }
+}

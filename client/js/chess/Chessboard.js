@@ -20,9 +20,9 @@ class Chessboard {
   }
 
   movePiece(piece, position) {
-    if (this.selectedPiece === piece) {
-      this.selectedPiece = null;
-    }
+    if (this.selectedPiece === piece) this.selectedPiece = null;
+
+    piece.hasMoved = true;
 
     this.lastMove = [piece.position, position];
 
