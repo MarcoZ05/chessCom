@@ -5,7 +5,7 @@ body {
 }
 
 * {
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
   color: var(--gray);
   outline: none;
   transition: 0.25s ease;
@@ -77,5 +77,30 @@ input *:active {
   }
   100% {
     color: var(--white);
+  }
+}
+
+.error {
+  color: var(--red);
+  background-color: var(--black-1);
+  width: 100vw;
+  font-size: 20px;
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: allFade 3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes allFade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

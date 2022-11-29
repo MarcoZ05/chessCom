@@ -1,4 +1,5 @@
 import successfullLogin from "./successfullLogin.js";
+import sendError from "../sendError.js";
 
 const socket = io();
 
@@ -61,10 +62,11 @@ verifyForm.addEventListener("submit", (e) => {
 
 socket.on("login", (data) => {
   if (data.success) successfullLogin(data);
+  else sendError(data.error);
 });
 
 socket.on("register", (data) => {
-  if (!data.success) return;
+  if (!data.success) return sendError(data.error)
 
   loginForm.style.display = "none";
   registerForm.style.display = "none";
@@ -75,4 +77,5 @@ socket.on("verify", (data) => {
   console.log(data);
 
   if (data.success) successfullLogin(data);
+  else sendError(data.error);
 });
