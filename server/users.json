@@ -6,5 +6,21 @@
     "verifyToken": null,
     "verified": true,
     "created": "2022-11-25T09:40:49.036Z"
+  },
+  {
+    "name": "Mika",
+    "password": "test",
+    "email": "mikareich@gmail.com",
+    "verifyToken": null,
+    "verified": true,
+    "created": "2022-11-29T07:49:44.328Z"
+  },
+  {
+    "name": "way",
+    "password": "majo",
+    "email": "test2@gmail.com",
+    "verifyToken": null,
+    "verified": true,
+    "created": "2022-11-29T13:01:56.207Z"
   }
-] 
+]
