@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "name": "GM00",
+    "password": "",
+    "players": [
+      {
+        "name": "diDm65Xj-1fThjAOAAAH",
+        "color": "white"
+      },
+      "Mc5ISW6iUyoxLACCAAAP",
+      "L772jC2FNEZdqVsNAAAD"
+    ],
+    "created": "2022-11-27T10:09:33.656Z",
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
+    "turn": "w",
+    "history": []
+  }
+]

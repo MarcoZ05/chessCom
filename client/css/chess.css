@@ -24,7 +24,7 @@ body {
   grid-template-rows: repeat(8, 1fr);
   width: 90vh;
   height: 90vh;
-  background-image: url("./images/board.svg");
+  background-image: url("../images/board.svg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

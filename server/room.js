@@ -5,8 +5,10 @@ function getRoomByName(name) {
   return rooms.find((room) => room.name === name);
 }
 
-function getRooms() {
-  return require("./rooms.json");
+function getRooms(openRoomsOnly = false) {
+  const rooms = require("./rooms.json");
+  if (openRoomsOnly) return rooms.filter((room) => room.open);
+  return rooms;
 }
 
 function pushRoom(room) {
@@ -22,8 +24,17 @@ function updateRoom(room) {
   fs.writeFileSync("./rooms.json", JSON.stringify(rooms, null, 2));
 }
 
+function removeRoom(room) {
+  const rooms = getRooms();
+  const index = rooms.findIndex((r) => r.name === room.name);
+  rooms.splice(index, 1);
+  fs.writeFileSync("./rooms.json", JSON.stringify(rooms, null, 2));
+}
+
 module.exports = {
   getRoomByName,
   pushRoom,
   updateRoom,
+  removeRoom,
+  getRooms,
 };

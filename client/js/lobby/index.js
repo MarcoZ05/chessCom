@@ -1,3 +1,5 @@
+import addRoom from "./addRoom.js";
+
 const socket = io();
 
 const accountLogout = document.getElementById("account_logout");
@@ -30,13 +32,6 @@ socket.on("login", ({ name, success }) => {
   accountName.innerText = name;
 });
 
-// join random room
-joinRoomForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  socket.emit("joinRandomRoom");
-});
-
 // join room or join random room
 joinRoomID.addEventListener("input", (event) => {
   let newButton = "Join Random Room";
@@ -50,4 +45,56 @@ joinRoomID.addEventListener("input", (event) => {
       joinRoomButton.classList.remove("textFade");
     }, 500);
   }
+});
+
+// join random room
+joinRoomForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  socket.emit("joinRandomRoom");
+});
+socket.on("joinRandomRoom", ({ success, room, error }) => {
+  if (!success) return;
+
+  window.location.href = `/chess.html?room=${room}`;
+});
+
+// join room
+joinRoomButton.addEventListener("click", () => {
+  if (joinRoomButton.innerText === "Join Room")
+    socket.emit("joinRoom", {
+      room: joinRoomID.value,
+      password: joinRoomPassword.value,
+    });
+  else socket.emit("joinRandomRoom");
+});
+socket.on("joinRoom", ({ success, room, error }) => {
+  if (!success) return;
+
+  window.location.href = `/chess.html?room=${room}`;
+});
+
+// create room
+createRoomForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  socket.emit("createRoom", {
+    password: createRoomPassword.value,
+  });
+});
+socket.on("createRoom", ({ success, room, error }) => {
+  if (!success) return;
+
+  window.location.href = `/chess.html?room=${room}`;
+});
+
+// update rooms
+socket.on("updateRooms", (rooms) => {
+  roomsContainer.innerHTML = "";
+
+  rooms.forEach((room) => {
+    const roomElement = addRoom(room);
+
+    roomsContainer.appendChild(roomElement);
+  });
 });
