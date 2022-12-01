@@ -14,13 +14,5 @@
     "verifyToken": null,
     "verified": true,
     "created": "2022-11-27T10:31:57.831Z"
-  },
-  {
-    "name": "MikaReich",
-    "password": "test",
-    "email": "mikareich0@gmail.com",
-    "verifyToken": null,
-    "verified": true,
-    "created": "2022-11-29T20:21:21.775Z"
   }
 ]

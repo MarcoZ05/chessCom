@@ -1,30 +1,34 @@
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 const EMAIL = process.env.EMAIL;
-const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+const PASSWORD = process.env.PASSWORD;
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
+  service: "gmail",
   auth: {
     user: EMAIL,
-    pass: EMAIL_PASSWORD
-  }
-})
+    pass: PASSWORD,
+  },
+});
 
-transporter.verify().then(console.log).catch(console.error)
+transporter
+  .verify()
+  .then((info) => console.log("Email status: " + info))
+  .catch(console.error);
 
 function sendVerificationEmail(name, email, verifyToken) {
   console.log(verifyToken);
 
-
-  transporter.sendMail({
-    from: '"Marco von Chessy" <marco.zillgen23@gmail.com>',
-    to: email,
-    subject: "Verify for Chessy",
-    text: "Your Code is: " + verifyToken + ".",
-    html: "Your Code is: <b>" + verifyToken + "</b>"
-  }).then(console.log).catch(console.error)
+  transporter
+    .sendMail({
+      from: '"Marco von Chessy" <marco.zillgen23@gmail.com>',
+      to: email,
+      subject: "Verify for Chessy",
+      text: "Hey " + name + ", your Code is: " + verifyToken + ".",
+      html: "Hey " + name + ", your Code is: <b>" + verifyToken + "</b>",
+    })
+    .catch(console.error);
 }
 
 module.exports = sendVerificationEmail;

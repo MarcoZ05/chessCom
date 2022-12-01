@@ -3,14 +3,14 @@ const http = require("http");
 const { Server } = require("socket.io");
 const generateCode = require("./generateCode.js");
 const sendVerificationEmail = require("./sendVerificationEmail.js");
-const { getUserByName, pushUser, updateUser } = require("./user.js");
+const { getUserByName, pushUser, updateUser } = require("./user/user.js");
 const {
   getRoomByName,
   pushRoom,
   updateRoom,
   removeRoom,
   getRooms,
-} = require("./room.js");
+} = require("./room/room.js");
 
 const app = express();
 const server = http.createServer(app);
@@ -45,25 +45,21 @@ io.on("connection", (socket) => {
         success: false,
         error: "Passwords do not match",
       });
-
     if (password0.length < 4)
       return socket.emit("register", {
         success: false,
         error: "Password must be at least 4 characters long",
       });
-
     if (name.length < 3)
       return socket.emit("register", {
         success: false,
         error: "Username must be at least 3 characters long",
       });
-
     if (!/^[a-zA-Z0-9]+$/.test(name))
       return socket.emit("register", {
         success: false,
         error: "Username must only contain letters and numbers",
       });
-
     if (!/^[a-zA-Z0-9]+$/.test(password0))
       return socket.emit("register", {
         success: false,
