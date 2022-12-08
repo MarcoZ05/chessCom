@@ -18,6 +18,7 @@ const createRoomPassword = document.getElementById("create_room_password");
 // login
 if (localStorage.getItem("chessLogin")) {
   const login = JSON.parse(localStorage.getItem("chessLogin"));
+
   socket.emit("login", login);
 } else accountLogout.click();
 

@@ -22,7 +22,6 @@ if (localStorage.getItem("chessLogin")) {
   socket.emit("login", login);
 }
 
-// login form
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -33,7 +32,6 @@ loginForm.addEventListener("submit", (e) => {
   });
 });
 
-// register form
 registerForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -66,7 +64,7 @@ socket.on("login", (data) => {
 });
 
 socket.on("register", (data) => {
-  if (!data.success) return sendError(data.error)
+  if (!data.success) return sendError(data.error);
 
   loginForm.style.display = "none";
   registerForm.style.display = "none";
@@ -74,8 +72,6 @@ socket.on("register", (data) => {
 });
 
 socket.on("verify", (data) => {
-  console.log(data);
-
   if (data.success) successfullLogin(data);
   else sendError(data.error);
 });

@@ -4,13 +4,6 @@ const { Server } = require("socket.io");
 const generateCode = require("./generateCode.js");
 const sendVerificationEmail = require("./sendVerificationEmail.js");
 const { getUserByName, pushUser, updateUser } = require("./user/user.js");
-const {
-  getRoomByName,
-  pushRoom,
-  updateRoom,
-  removeRoom,
-  getRooms,
-} = require("./room/room.js");
 
 const app = express();
 const server = http.createServer(app);
@@ -121,99 +114,15 @@ io.on("connection", (socket) => {
   });
 
   socket.on("joinRandomRoom", () => {
-    const rooms = getRooms(true);
-
-    if (rooms.length === 0)
-      return socket.emit("joinRandomRoom", {
-        success: false,
-        error: "No open rooms",
-      });
-
-    const room = rooms[Math.floor(Math.random() * rooms.length)];
-
-    socket.emit("joinRandomRoom", {
-      success: true,
-      room: room.name,
-    });
-
-    const roomIndex = getRooms().findIndex((r) => r.name === room.name);
-
-    room.players.push(socket.id);
-
-    io.emit("updateRooms", getRooms());
+    
+    
   });
 
-  socket.on("createRoom", ({ password }) => {
-    let roomName = generateCode(4);
-    while (getRoomByName(roomName)) roomName = generateCode(4);
+  socket.on("createRoom", ({ password }) => {});
 
-    if (password.length === 0) password = null;
+  socket.on("joinRoom", ({ room, password }) => {});
 
-    pushRoom({
-      name: roomName,
-      password: password,
-      players: [
-        {
-          name: socket.id,
-          color: "white",
-        },
-      ],
-      created: new Date(),
-      fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
-      turn: "w",
-      history: [],
-    });
-
-    socket.emit("createRoom", {
-      success: true,
-      room: roomName,
-    });
-
-    io.emit("updateRooms", getRooms());
-  });
-
-  socket.on("joinRoom", ({ room, password }) => {
-    const roomObj = getRoomByName(room);
-
-    if (!roomObj)
-      return socket.emit("joinRoom", {
-        success: false,
-        error: "Room does not exist",
-      });
-
-    if (roomObj.password !== password && roomObj.password !== null)
-      return socket.emit("joinRoom", {
-        success: false,
-        error: "Invalid password",
-      });
-
-    socket.emit("joinRoom", {
-      success: true,
-      room: roomObj.name,
-    });
-
-    const roomIndex = getRooms().findIndex((r) => r.name === roomObj.name);
-
-    roomObj.players.push(socket.id);
-
-    updateRoom(roomIndex, roomObj);
-
-    io.emit("updateRooms", getRooms());
-  });
-
-  socket.on("move", ({ move }) => {
-    const room = getRooms().find((r) => r.players.includes(socket.id));
-
-    if (!room) return;
-
-    room.fen = move.fen;
-    room.turn = move.turn;
-    room.history.push(move);
-
-    const players = room.players.filter((p) => p !== socket.id);
-
-    players.forEach((p) => io.to(p).emit("move", move));
-  });
+  socket.on("move", ({ move }) => {});
 });
 
 server.listen(port, () => console.log(`listening on *:${port}`));

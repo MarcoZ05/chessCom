@@ -1,4 +1,5 @@
 function successfullLogin(data) {
+  // save login data in local storage
   localStorage.setItem(
     "chessLogin",
     JSON.stringify({
@@ -6,6 +7,7 @@ function successfullLogin(data) {
       password: data.password,
     })
   );
+
   window.location.href = "/lobby.html";
 }
 

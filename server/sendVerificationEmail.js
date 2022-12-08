@@ -18,8 +18,6 @@ transporter
   .catch(console.error);
 
 function sendVerificationEmail(name, email, verifyToken) {
-  console.log(verifyToken);
-
   transporter
     .sendMail({
       from: '"Marco von Chessy" <marco.zillgen23@gmail.com>',
